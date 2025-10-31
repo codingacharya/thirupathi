@@ -1,0 +1,68 @@
+:root {
+  --brand: #0d6efd;
+  --muted: #6c757d;
+  --bg-hero: linear-gradient(135deg, rgba(13,110,253,0.95), rgba(32,201,151,0.85));
+  --card-radius: 12px;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+body {
+  scroll-behavior: smooth;
+  background: #fff;
+  color: #222;
+}
+
+.hero-section {
+  min-height: 72vh;
+  padding-top: 90px;
+  padding-bottom: 90px;
+  background: var(--bg-hero);
+}
+
+.hero-card {
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+/* Timeline simple */
+.timeline {
+  list-style: none;
+  padding-left: 0;
+}
+.timeline li {
+  padding: 8px 0;
+  border-left: 3px solid rgba(13,110,253,0.12);
+  margin-left: 12px;
+  padding-left: 16px;
+}
+.timeline li span {
+  color: var(--brand);
+}
+
+/* Project card hover */
+.project-card:hover {
+  transform: translateY(-6px);
+  transition: transform .25s ease;
+}
+
+/* Footer */
+footer {
+  margin-top: 40px;
+}
+
+/* Small responsive tweaks */
+@media (max-width: 991px) {
+  .hero-section {
+    padding-top: 120px;
+    padding-bottom: 60px;
+  }
+}
