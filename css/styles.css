@@ -12,6 +12,7 @@ body {
   color: #222;
 }
 
+/* Hero Section */
 .hero-section {
   min-height: 72vh;
   padding-top: 90px;
@@ -24,6 +25,7 @@ body {
   margin: 0 auto;
 }
 
+/* Section spacing */
 section {
   padding-top: 60px;
   padding-bottom: 60px;
@@ -33,25 +35,64 @@ section {
   background-color: #f8f9fa !important;
 }
 
-/* Timeline simple */
+/* Timeline */
 .timeline {
   list-style: none;
   padding-left: 0;
 }
+
 .timeline li {
   padding: 8px 0;
   border-left: 3px solid rgba(13,110,253,0.12);
   margin-left: 12px;
   padding-left: 16px;
 }
+
 .timeline li span {
   color: var(--brand);
 }
 
 /* Project card hover */
+.project-card {
+  transition: transform .25s ease;
+}
+
 .project-card:hover {
   transform: translateY(-6px);
-  transition: transform .25s ease;
+}
+
+/* Industry Visit Section */
+
+.industry-section {
+  background: #f8f9fa;
+}
+
+.visit-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.visit-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.visit-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.visit-content {
+  padding: 20px;
+}
+
+.visit-content h5 {
+  font-weight: 600;
 }
 
 /* Footer */
@@ -59,39 +100,11 @@ footer {
   margin-top: 40px;
 }
 
-/* Small responsive tweaks */
+/* Responsive */
 @media (max-width: 991px) {
+
   .hero-section {
     padding-top: 120px;
+  }
 
-   .industry-section{
-  background:#f8f9fa;
-}
-
-.visit-card{
-  background:#fff;
-  border-radius:12px;
-  overflow:hidden;
-  text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,0.1);
-  transition:all 0.3s ease;
-}
-
-.visit-card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 10px 25px rgba(0,0,0,0.15);
-}
-
-.visit-img{
-  width:100%;
-  height:200px;
-  object-fit:cover;
-}
-
-.visit-content{
-  padding:20px;
-}
-
-.visit-content h5{
-  font-weight:600;
 }
