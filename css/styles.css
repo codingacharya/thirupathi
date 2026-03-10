@@ -63,6 +63,43 @@ footer {
 @media (max-width: 991px) {
   .hero-section {
     padding-top: 120px;
+
+    .industry-section {
+  background: #f8f9fa;
+}
+
+.visit-card {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.visit-card:hover {
+  transform: translateY(-8px);
+}
+
+.visit-img {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.visit-content {
+  padding: 20px;
+}
+
+.visit-content h5 {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.visit-content p {
+  font-size: 14px;
+  color: #555;
+}
     padding-bottom: 60px;
   }
 }
+
