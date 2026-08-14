@@ -164,32 +164,20 @@
 
     <div class="row g-4">
 
+      <!-- Profile badges (stable, shields.io) -->
       <div class="col-md-6">
         <div class="card shadow-sm border-0 h-100">
-          <div class="card-body text-center">
-            <img
-              src="https://github-readme-stats.vercel.app/api?username=codingacharya&show_icons=true&theme=tokyonight&hide_border=true&cache_seconds=86400"
-              alt="Thirupathi's GitHub stats"
-              class="img-fluid rounded"
-              loading="lazy"
-            />
+          <div class="card-body text-center d-flex flex-column justify-content-center gap-2">
+            <h6 class="text-muted mb-2">GitHub Profile</h6>
+            <div class="d-flex flex-wrap justify-content-center gap-2">
+              <img src="https://img.shields.io/github/followers/codingacharya?style=for-the-badge&logo=github&color=2563eb&labelColor=1e293b" alt="GitHub followers" />
+              <img src="https://img.shields.io/github/stars/codingacharya?style=for-the-badge&logo=github&color=2563eb&labelColor=1e293b" alt="GitHub stars" />
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-md-6">
-        <div class="card shadow-sm border-0 h-100">
-          <div class="card-body text-center">
-            <img
-              src="https://github-readme-stats.vercel.app/api/top-langs/?username=codingacharya&layout=compact&theme=tokyonight&hide_border=true&cache_seconds=86400"
-              alt="Most used languages"
-              class="img-fluid rounded"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </div>
-
+      <!-- Streak stats (working) -->
       <div class="col-md-6">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body text-center">
@@ -203,7 +191,8 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <!-- Contribution heatmap (working, full width) -->
+      <div class="col-12">
         <div class="card shadow-sm border-0 h-100">
           <div class="card-body text-center">
             <img
