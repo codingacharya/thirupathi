@@ -1208,104 +1208,98 @@
 
 
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Publications Treemap — Dr. K. Thirupathi Reddy</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-<style>
-  body{background:#f4f6fa;color:#14213d}
-  .stat{background:#fff;border-radius:.6rem;padding:.8rem 1rem;border:1px solid #dde3ee;height:100%}
-  .stat b{display:block;font-size:1.8rem;font-weight:700;line-height:1.1}
-  .stat span{font-size:.85rem;color:#5b6577}
-  #tm{position:relative;width:100%;background:#fff;border:1px solid #dde3ee;border-radius:.6rem;overflow:hidden}
-  .box{position:absolute;overflow:hidden;box-sizing:border-box;border-radius:4px}
-  .grp{border:1px solid var(--c);background:color-mix(in srgb,var(--c) 14%,#fff)}
-  .grp>.lab{font-size:.72rem;font-weight:700;padding:2px 6px;color:#14213d;white-space:nowrap}
-  .leaf{background:var(--c);color:#0b1426;padding:5px 6px;font-size:.72rem;line-height:1.2;cursor:default}
-  .leaf small{display:block;opacity:.75;font-size:.64rem;margin-top:2px}
-  .leaf:hover{filter:brightness(.92)}
-  .key i{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;margin-right:.35rem;vertical-align:-1px}
-</style>
-</head>
-<body>
-<main class="container-xl py-4">
-  <h1 class="h3 fw-bold mb-1">Publications treemap</h1>
-  <p class="text-secondary mb-3">Dr. K. Thirupathi Reddy. One tile per paper, grouped by type. Hover a tile for the full title.</p>
+<!-- ===== Publications Treemap section =====
+     Paste inside <body> where you want it. Needs Bootstrap 5 (already on your site). -->
+<section id="pubtm" class="py-5">
+  <div class="container">
+    <h2 class="fw-bold mb-1">Publications</h2>
+    <p class="text-secondary mb-3">One tile per paper, grouped by type. Hover a tile for the full title.</p>
 
-  <div class="row g-3 mb-3" id="stats"></div>
-  <div class="key small mb-2" id="key"></div>
-  <div id="tm" role="img" aria-label="Treemap of publications by type"></div>
-  <p class="small text-secondary mt-2 mb-0">Tile area is a visual weight, not citations: book 6, book chapter 4, indexed journal 4, other journal or open paper 3, preprint 1. The preprint list has one repeated title and two titles also in the journal list, so unique papers are slightly fewer than 39.</p>
-</main>
+    <div class="row g-3 mb-3" id="pubtm-stats"></div>
+    <div class="small mb-2" id="pubtm-key"></div>
+    <div id="pubtm-map" role="img" aria-label="Treemap of publications by type"></div>
+    <p class="small text-secondary mt-2 mb-0">Tile area is a visual weight, not citations: book 6, book chapter 4, indexed journal 4, other journal or open paper 3, preprint 1.</p>
+  </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
-<script>
-const COL = {'Journals & conferences':'#14a38b','Open peer-reviewed':'#3b82f6','Book':'#f5a524','Book chapter':'#ef6f5e','Preprints':'#8b6fe0'};
-const P = (t,m,v)=>({n:t,m,v});
+  <style>
+    #pubtm .stat{background:#fff;border-radius:.6rem;padding:.8rem 1rem;border:1px solid #dde3ee;height:100%;color:#14213d}
+    #pubtm .stat b{display:block;font-size:1.8rem;font-weight:700;line-height:1.1}
+    #pubtm .stat span{font-size:.85rem;color:#5b6577}
+    #pubtm-map{position:relative;width:100%;background:#fff;border:1px solid #dde3ee;border-radius:.6rem;overflow:hidden}
+    #pubtm .tb{position:absolute;overflow:hidden;box-sizing:border-box;border-radius:4px}
+    #pubtm .grp{border:1px solid var(--c);background:color-mix(in srgb,var(--c) 14%,#fff)}
+    #pubtm .grp>.lab{font-size:.72rem;font-weight:700;padding:2px 6px;color:#14213d;white-space:nowrap}
+    #pubtm .leaf{background:var(--c);color:#0b1426;padding:5px 6px;font-size:.72rem;line-height:1.2;cursor:default}
+    #pubtm .leaf small{display:block;opacity:.75;font-size:.64rem;margin-top:2px}
+    #pubtm .leaf:hover{filter:brightness(.92)}
+    #pubtm .key-i{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;margin-right:.35rem;vertical-align:-1px}
+  </style>
 
-const DATA = {n:'root',children:[
- {n:'Journals & conferences',children:[
-  P('Small-cap stock price using Python','IJST · WoS · 4',4),
-  P('Stock price using Python, best accuracy','IJTE · UGC CARE · 4',4),
-  P('Small-cap company growth using Python','ICCISD conference',3),
-  P('Concurrent access to encrypted cloud databases','ISSN 2348-4845',3),
-  P('Traders losing money: a SEBI report','SSRN · Scopus ISSN',3),
-  P('Multi-scale CNN for lung nodules (low-dose CT)','IJONS · WoS · 2026',4),
-  P('Stock price prediction with LSTM','IJONS · WoS · 2024',4),
-  P('Quantum neural networks for large-scale data','IJONS · WoS · 2026',4)]},
- {n:'Open peer-reviewed',children:[
-  P('Corn-based ethanol fermentation modeling','Energy Intelligence & Sustainability',3),
-  P('Real-time drone detection with YOLOv8','J. Contemporary Politics · 2026',3)]},
- {n:'Book',children:[P('The Behavioural Study of Stocks and LSTM Algorithm','Eliva Press · ISBN 9999323545',6)]},
- {n:'Book chapter',children:[P('Data science & ML revolutionizing agriculture','New Delhi Publications',4)]},
- {n:'Preprints',children:[
-  {n:'ResearchGate (11)',children:[
-   P('Time-series forecasting: ARIMA, LSTM, Transformers','Dec 2025',1),P('Survey of large language models','Dec 2025',1),
-   P('ML for predictive maintenance','Dec 2025',1),P('Satellite image classification','Dec 2025',1),
-   P('AI methods across domains: survey','Dec 2025',1),P('CNN-LSTM aircraft engine RUL','Feb 2026',1),
-   P('Quantum-inspired melody generation','Jan 2026',1),P('Explainable AI in healthcare','Feb 2026',1),
-   P('CNN-LSTM aircraft engine RUL (repeat)','Feb 2026',1),P('Quantum neural networks','Jun 2026',1),
-   P('Genetic algorithm for ad budget allocation','Sep 2026',1)]},
-  {n:'SSRN (9)',children:[
-   P('Drawbacks of LSTM','Jan 2025',1),P('Traders losing money: SEBI report','Oct 2024',1),
-   P('Drawbacks of Random Forest','Apr 2025',1),P('99 reasons for losses in F&O','Feb 2025',1),
-   P('ID3 decision tree','Sep 2025',1),P('Streamlit sales dashboard','Sep 2025',1),
-   P('Flood prediction, Random Forest','Oct 2025',1),P('Qubit state visualizer','Oct 2025',1),
-   P('Personalized nutrition recommender','Oct 2025',1)]},
-  {n:'TechRxiv (2)',children:[P('Startup success growth framework','Sep 2025',1),P('Explainable DL pneumonia detection','Oct 2025',1)]},
-  {n:'Research Square (2)',children:[P('Breast cancer classification','Sep 2025',1),P('Streamlit qubit simulator','Sep 2025',1)]},
-  {n:'Others (3)',children:[P('Brain tumor ML, few images · Authorea','Dec 2025',1),P('Large-scale image classification · IndiaRxiv','Nov 2025',1),P('Lung nodules CNN · ScienceOpen','Dec 2025',1)]}
- ]}
-]};
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+  <script>
+  (function(){
+    const COL={'Journals & conferences':'#14a38b','Open peer-reviewed':'#3b82f6','Book':'#f5a524','Book chapter':'#ef6f5e','Preprints':'#8b6fe0'};
+    const P=(t,m,v)=>({n:t,m,v});
+    const DATA={n:'root',children:[
+     {n:'Journals & conferences',children:[
+      P('Small-cap stock price using Python','IJST · WoS · 4',4),
+      P('Stock price using Python, best accuracy','IJTE · UGC CARE · 4',4),
+      P('Small-cap company growth using Python','ICCISD conference',3),
+      P('Concurrent access to encrypted cloud databases','ISSN 2348-4845',3),
+      P('Traders losing money: a SEBI report','SSRN · Scopus ISSN',3),
+      P('Multi-scale CNN for lung nodules (low-dose CT)','IJONS · WoS · 2026',4),
+      P('Stock price prediction with LSTM','IJONS · WoS · 2024',4),
+      P('Quantum neural networks for large-scale data','IJONS · WoS · 2026',4)]},
+     {n:'Open peer-reviewed',children:[
+      P('Corn-based ethanol fermentation modeling','Energy Intelligence & Sustainability',3),
+      P('Real-time drone detection with YOLOv8','J. Contemporary Politics · 2026',3)]},
+     {n:'Book',children:[P('The Behavioural Study of Stocks and LSTM Algorithm','Eliva Press · ISBN 9999323545',6)]},
+     {n:'Book chapter',children:[P('Data science & ML revolutionizing agriculture','New Delhi Publications',4)]},
+     {n:'Preprints',children:[
+      {n:'ResearchGate (11)',children:[
+       P('Time-series forecasting: ARIMA, LSTM, Transformers','Dec 2025',1),P('Survey of large language models','Dec 2025',1),
+       P('ML for predictive maintenance','Dec 2025',1),P('Satellite image classification','Dec 2025',1),
+       P('AI methods across domains: survey','Dec 2025',1),P('CNN-LSTM aircraft engine RUL','Feb 2026',1),
+       P('Quantum-inspired melody generation','Jan 2026',1),P('Explainable AI in healthcare','Feb 2026',1),
+       P('CNN-LSTM aircraft engine RUL (repeat)','Feb 2026',1),P('Quantum neural networks','Jun 2026',1),
+       P('Genetic algorithm for ad budget allocation','Sep 2026',1)]},
+      {n:'SSRN (9)',children:[
+       P('Drawbacks of LSTM','Jan 2025',1),P('Traders losing money: SEBI report','Oct 2024',1),
+       P('Drawbacks of Random Forest','Apr 2025',1),P('99 reasons for losses in F&O','Feb 2025',1),
+       P('ID3 decision tree','Sep 2025',1),P('Streamlit sales dashboard','Sep 2025',1),
+       P('Flood prediction, Random Forest','Oct 2025',1),P('Qubit state visualizer','Oct 2025',1),
+       P('Personalized nutrition recommender','Oct 2025',1)]},
+      {n:'TechRxiv (2)',children:[P('Startup success growth framework','Sep 2025',1),P('Explainable DL pneumonia detection','Oct 2025',1)]},
+      {n:'Research Square (2)',children:[P('Breast cancer classification','Sep 2025',1),P('Streamlit qubit simulator','Sep 2025',1)]},
+      {n:'Others (3)',children:[P('Brain tumor ML, few images · Authorea','Dec 2025',1),P('Large-scale image classification · IndiaRxiv','Nov 2025',1),P('Lung nodules CNN · ScienceOpen','Dec 2025',1)]}
+     ]}
+    ]};
 
-const STATS=[['39','Total entries'],['8','Journal / conference'],['4','WoS or UGC CARE'],['2','Open peer-reviewed'],['1','Book'],['1','Book chapter'],['27','Preprints']];
-document.getElementById('stats').innerHTML=STATS.map(([n,l])=>`<div class="col-6 col-md-3 col-lg"><div class="stat"><b>${n}</b><span>${l}</span></div></div>`).join('');
-document.getElementById('key').innerHTML=Object.entries(COL).map(([k,c])=>`<span class="me-3"><i style="background:${c}"></i>${k}</span>`).join('');
+    const STATS=[['39','Total entries'],['8','Journal / conference'],['4','WoS or UGC CARE'],['2','Open peer-reviewed'],['1','Book'],['1','Book chapter'],['27','Preprints']];
+    document.getElementById('pubtm-stats').innerHTML=STATS.map(([n,l])=>`<div class="col-6 col-md-3 col-lg"><div class="stat"><b>${n}</b><span>${l}</span></div></div>`).join('');
+    document.getElementById('pubtm-key').innerHTML=Object.entries(COL).map(([k,c])=>`<span class="me-3"><i class="key-i" style="background:${c}"></i>${k}</span>`).join('');
 
-const root=d3.hierarchy(DATA).sum(d=>d.v||0);
-const tm=document.getElementById('tm');
-const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+    const root=d3.hierarchy(DATA).sum(d=>d.v||0);
+    const box=document.getElementById('pubtm-map');
+    const esc=s=>String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');
 
-function draw(){
-  const W=tm.clientWidth, H=W<640?Math.round(W*2.1):Math.max(560,Math.round(W*.58));
-  tm.style.height=H+'px';
-  d3.treemap().size([W,H]).paddingInner(3).paddingOuter(3).round(true)
-    .paddingTop(d=>d.children&&d.depth>0?20:3)(root);
-  tm.innerHTML=root.descendants().filter(d=>d.depth>0).map(d=>{
-    const g=d.ancestors().find(a=>a.depth===1).data.n, c=COL[g];
-    const s=`left:${d.x0}px;top:${d.y0}px;width:${d.x1-d.x0}px;height:${d.y1-d.y0}px;--c:${c}`;
-    return d.children
-      ? `<div class="box grp" style="${s}"><div class="lab">${esc(d.data.n)}</div></div>`
-      : `<div class="box leaf" style="${s}" title="${esc(d.data.n+' — '+d.data.m)}">${esc(d.data.n)}<small>${esc(d.data.m)}</small></div>`;
-  }).join('');
-}
-draw(); addEventListener('resize',draw);
-</script>
-</body>
-</html>
+    function draw(){
+      const W=box.clientWidth,H=W<640?Math.round(W*2.1):Math.max(560,Math.round(W*.58));
+      box.style.height=H+'px';
+      d3.treemap().size([W,H]).paddingInner(3).paddingOuter(3).round(true)
+        .paddingTop(d=>d.children&&d.depth>0?20:3)(root);
+      box.innerHTML=root.descendants().filter(d=>d.depth>0).map(d=>{
+        const c=COL[d.ancestors().find(a=>a.depth===1).data.n];
+        const s=`left:${d.x0}px;top:${d.y0}px;width:${d.x1-d.x0}px;height:${d.y1-d.y0}px;--c:${c}`;
+        return d.children
+          ?`<div class="tb grp" style="${s}"><div class="lab">${esc(d.data.n)}</div></div>`
+          :`<div class="tb leaf" style="${s}" title="${esc(d.data.n+' — '+d.data.m)}">${esc(d.data.n)}<small>${esc(d.data.m)}</small></div>`;
+      }).join('');
+    }
+    draw();addEventListener('resize',draw);
+  })();
+  </script>
+</section>
   
   
   <!-- RESEARCH & PUBLICATIONS -->
