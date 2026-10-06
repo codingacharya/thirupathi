@@ -1208,6 +1208,125 @@
 
 
 
+<!-- ML Projects section: needs Bootstrap 5 + Bootstrap Icons already loaded on your page -->
+<style>
+#ml-projects{--ink:#14213d;--mute:#53607a;--bg:#eef2f6;--card:#fff;--line:#d5dde8;--teal:#0f8b8d;
+  background:var(--bg);color:var(--ink);padding:5rem 0;font-family:'IBM Plex Sans',system-ui,sans-serif}
+#ml-projects h2,#ml-projects h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;letter-spacing:-.01em}
+#ml-projects .mlp-lead{max-width:60ch;color:var(--mute);font-size:1.05rem}
+#ml-projects .mlp-stat{border-left:3px solid var(--teal);padding-left:.9rem}
+#ml-projects .mlp-stat b{display:block;font:700 1.9rem 'Bricolage Grotesque',sans-serif;line-height:1}
+#ml-projects .mlp-stat span{color:var(--mute);font-size:.9rem}
+#ml-projects .mlp-chip{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:2rem;
+  padding:.4rem 1rem;font-size:.9rem;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+#ml-projects .mlp-chip:hover{border-color:var(--ink)}
+#ml-projects .mlp-chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+#ml-projects .mlp-chip:focus-visible,#ml-projects .mlp-btn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+#ml-projects .mlp-card{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--c);
+  border-radius:.6rem;padding:1.4rem;height:100%;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s}
+#ml-projects .mlp-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(20,33,61,.12)}
+#ml-projects .mlp-ico{width:2.8rem;height:2.8rem;border-radius:.5rem;display:grid;place-items:center;
+  font-size:1.4rem;color:var(--c);background:color-mix(in srgb,var(--c) 12%,white)}
+#ml-projects .mlp-cat{font-size:.82rem;font-weight:500;color:var(--c)}
+#ml-projects .mlp-card p{color:var(--mute);font-size:.95rem;margin:.6rem 0 1rem}
+#ml-projects .mlp-tags{margin-top:auto;display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+#ml-projects .mlp-tags span{background:var(--bg);border-radius:.3rem;padding:.15rem .55rem;font-size:.78rem;color:var(--mute)}
+#ml-projects .mlp-btn{display:inline-flex;align-items:center;gap:.4rem;border-radius:.4rem;padding:.4rem .9rem;
+  font-size:.88rem;font-weight:500;text-decoration:none;border:1px solid var(--ink);color:var(--ink);transition:background .2s,color .2s}
+#ml-projects .mlp-btn:hover{background:var(--ink);color:#fff}
+#ml-projects .mlp-btn.demo{background:var(--teal);border-color:var(--teal);color:#fff}
+#ml-projects .mlp-btn.demo:hover{background:#0b6b6d;border-color:#0b6b6d}
+#ml-projects .mlp-item.hide{display:none}
+@media (prefers-reduced-motion:reduce){#ml-projects *{transition:none!important}}
+</style>
+
+<!-- ========== HTML ========== -->
+<section id="ml-projects" aria-labelledby="mlp-title">
+  <div class="container">
+    <div class="row align-items-end g-4 mb-5">
+      <div class="col-lg-7">
+        <h2 id="mlp-title" class="display-5 fw-bold mb-3">Machine learning, built and running</h2>
+        <p class="mlp-lead mb-0">Seventeen core ML topics, each turned into an interactive Streamlit app. Change the inputs, watch the model respond, and read the code on GitHub.</p>
+      </div>
+      <div class="col-lg-5">
+        <div class="row g-3">
+          <div class="col-4 mlp-stat"><b>17</b><span>projects</span></div>
+          <div class="col-4 mlp-stat"><b>6</b><span>topic areas</span></div>
+          <div class="col-4 mlp-stat"><b>100%</b><span>Streamlit apps</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mlp-filters" class="d-flex flex-wrap gap-2 mb-4" role="group" aria-label="Filter projects by topic"></div>
+    <div id="mlp-grid" class="row g-4"></div>
+  </div>
+</section>
+
+<!-- ========== JS (edit the list below to add demo links or new projects) ========== -->
+<script>
+(function () {
+  var GH = "https://github.com/codingacharya/";
+  var CATS = {
+    "Deep Learning & NLP":   {c: "#6d4aff", i: "bi-cpu"},
+    "Ensemble Methods":      {c: "#d9480f", i: "bi-diagram-3"},
+    "Probabilistic Models":  {c: "#0f8b8d", i: "bi-bar-chart-line"},
+    "Regression & Error":    {c: "#1c7ed6", i: "bi-graph-up-arrow"},
+    "Learning Foundations":  {c: "#2f9e44", i: "bi-mortarboard"},
+    "Optimization & Applied":{c: "#c2255c", i: "bi-bullseye"}
+  };
+  // demo: "https://your-app.streamlit.app"  -> adds a "Live demo" button
+  var P = [
+    {repo:"bert-nlp", t:"BERT for NLP", cat:"Deep Learning & NLP", d:"Transformer-based language understanding with BERT, applied to text tasks through an interactive interface.", tags:["BERT","Transformers","NLP"]},
+    {repo:"self-driving", t:"Self-Driving", cat:"Deep Learning & NLP", d:"A learning-based driving model explored step by step in an app you can interact with.", tags:["Deep Learning","Vision"]},
+    {repo:"multi-layer-perception", t:"Multi-Layer Perceptron", cat:"Deep Learning & NLP", d:"Feed-forward neural network showing layers, activations and training behaviour.", tags:["Neural Networks","Backprop"]},
+    {repo:"boosting-algorithms", t:"Boosting Algorithms", cat:"Ensemble Methods", d:"How weak learners combine into a strong model, compared across boosting methods.", tags:["AdaBoost","Boosting"]},
+    {repo:"xgboost-working-procedure", t:"XGBoost Working Procedure", cat:"Ensemble Methods", d:"A walk through how XGBoost builds its trees and improves each round.", tags:["XGBoost","Gradient Boosting"]},
+    {repo:"gaussian-gmm", t:"Gaussian Mixture Models", cat:"Probabilistic Models", d:"Soft clustering with Gaussian components fitted by expectation-maximization.", tags:["GMM","EM","Clustering"]},
+    {repo:"hmm", t:"Hidden Markov Models", cat:"Probabilistic Models", d:"Modelling sequences with hidden states and observed outputs.", tags:["HMM","Sequences"]},
+    {repo:"factor-analysis", t:"Factor Analysis", cat:"Probabilistic Models", d:"Finding the latent factors behind correlated variables to reduce dimensions.", tags:["Latent Factors","Dimensionality"]},
+    {repo:"linear-regression-all", t:"Linear Regression, All Variants", cat:"Regression & Error", d:"Simple, multiple and regularized linear regression in one place.", tags:["Regression","Regularization"]},
+    {repo:"sse-leastsquares", t:"SSE & Least Squares", cat:"Regression & Error", d:"See how minimizing the sum of squared errors finds the best-fit line.", tags:["Least Squares","SSE"]},
+    {repo:"error-calculation", t:"Error Calculation", cat:"Regression & Error", d:"Common error metrics computed and compared on your own inputs.", tags:["MSE","Metrics"]},
+    {repo:"bias", t:"Bias & Variance", cat:"Regression & Error", d:"Understand the bias-variance trade-off and how it shapes model fit.", tags:["Bias","Variance"]},
+    {repo:"machinelearning", t:"Machine Learning Essentials", cat:"Learning Foundations", d:"Core machine learning ideas gathered into a single hands-on project.", tags:["Fundamentals"]},
+    {repo:"supervised-learning", t:"Supervised Learning", cat:"Learning Foundations", d:"Training on labelled data for classification and regression.", tags:["Classification","Regression"]},
+    {repo:"concept-learning", t:"Concept Learning", cat:"Learning Foundations", d:"Learning a concept from examples by narrowing down the hypothesis space.", tags:["Hypothesis Space","Find-S"]},
+    {repo:"genetic-algo", t:"Genetic Algorithm", cat:"Optimization & Applied", d:"Evolution-inspired search with selection, crossover and mutation.", tags:["Evolutionary","Optimization"]},
+    {repo:"attrition-calculation", t:"Attrition Calculation", cat:"Optimization & Applied", d:"An applied analytics app for calculating and understanding attrition.", tags:["Analytics","Applied ML"]}
+  ];
+
+  var grid = document.getElementById("mlp-grid"), box = document.getElementById("mlp-filters");
+
+  grid.innerHTML = P.map(function (p) {
+    var k = CATS[p.cat];
+    var tags = ["Python", "Streamlit"].concat(p.tags).map(function (t) { return "<span>" + t + "</span>"; }).join("");
+    var demo = p.demo ? '<a class="mlp-btn demo" href="' + p.demo + '" target="_blank" rel="noopener"><i class="bi bi-play-circle"></i>Live demo</a>' : "";
+    return '<div class="col-md-6 col-xl-4 mlp-item" data-cat="' + p.cat + '">' +
+      '<article class="mlp-card" style="--c:' + k.c + '">' +
+      '<div class="d-flex align-items-center gap-3"><div class="mlp-ico"><i class="bi ' + k.i + '"></i></div>' +
+      '<div><h3 class="h5 mb-0">' + p.t + '</h3><span class="mlp-cat">' + p.cat + '</span></div></div>' +
+      '<p>' + p.d + '</p><div class="mlp-tags">' + tags + '</div>' +
+      '<div class="d-flex gap-2 flex-wrap">' + demo +
+      '<a class="mlp-btn" href="' + GH + p.repo + '" target="_blank" rel="noopener"><i class="bi bi-github"></i>View code</a></div>' +
+      '</article></div>';
+  }).join("");
+
+  var names = ["All"].concat(Object.keys(CATS));
+  box.innerHTML = names.map(function (n, i) {
+    return '<button type="button" class="mlp-chip' + (i === 0 ? " active" : "") + '" data-f="' + n + '" aria-pressed="' + (i === 0) + '">' + n + '</button>';
+  }).join("");
+
+  box.addEventListener("click", function (e) {
+    var b = e.target.closest(".mlp-chip"); if (!b) return;
+    box.querySelectorAll(".mlp-chip").forEach(function (c) { c.classList.toggle("active", c === b); c.setAttribute("aria-pressed", c === b); });
+    grid.querySelectorAll(".mlp-item").forEach(function (it) {
+      it.classList.toggle("hide", b.dataset.f !== "All" && it.dataset.cat !== b.dataset.f);
+    });
+  });
+})();
+</script>
+  
+
 <!-- ===== Publications Treemap section =====
      Paste inside <body> where you want it. Needs Bootstrap 5 (already on your site). -->
 <section id="pubtm" class="py-5">
